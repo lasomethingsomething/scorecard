@@ -25,10 +25,21 @@ Beneath the issue titles, almost every request is one of five core problems:
    vulnerability reporting watch their score *drop* while being more secure.
 3. **"Now what?" (actionability).** Consumers want work items — remediation diffs, ticket-ready
    checklists — not findings.
-4. **"Can I enforce this?" (policy verdicts).** Thresholds, exemptions, and gates — a verdict,
-   not a score. The new OSPS Baseline conformance mode is the maintainers' structural answer here.
+4. **"Can I enforce this?" (my own policy verdict).** Thresholds, exemptions, gates — but
+   crucially *not* "decide for me": consumers consistently reject the tool dictating which
+   checks matter. The real ask is **per-check signal plus configurable thresholds** so each
+   consumer sets an appetite gate ("overall ≥ X, my critical checks not below Y"). The new
+   OSPS Baseline conformance mode is the maintainers' structural answer here.
 5. **"Am I safe from the attack of the week?" (threat currency).** Security researchers use
    Scorecard as the distribution channel for newly disclosed CI-attack techniques.
+
+**Two personas, not one.** Almost everything filed in this backlog comes from *maintainers
+defending their badge*. A second persona is largely absent from the issue tracker but real —
+**consumers vetting upstream dependencies**, Scorecard's original design purpose. Their asks
+(per-check detail, "why is this project only level 1?", evidence behind a gate) overlap with but
+differ from maintainer asks (stop punishing me, tell me what to fix). "Trust" and "enforce" each
+split into a maintainer-side and a consumer-side complaint; roadmap work should be labeled with
+which persona it serves.
 
 **Meta-observation:** people propose checks, but what they want is a signal that is
 accurate, current, actionable, and enforceable. Most backlog growth comes from Scorecard being
@@ -176,6 +187,24 @@ new detections. That itself is signal.
    ([#1850](https://github.com/ossf/scorecard/issues/1850), [#3798](https://github.com/ossf/scorecard/issues/3798))
    asks fold into the new OSPS-Baseline conformance layer rather than the classic score.
 4. **Stale harvest** — 120 stale issues, many pre-2023, likely superseded by the probes refactor.
+
+## Open decision: conformance reporting granularity
+
+Not in the issue backlog, but the most consequential live discussion (Nov 2026 community
+thread, conformance mode): **what does conformance output report by default?**
+
+- *Granular:* maturity levels as the default, with control details in evidence files or via an
+  explicit flag — consumers need "why is this level 1?" for risk decisions; splitting detail
+  into a second tool is bad UX for what is conceptually one analysis.
+- *Binary:* either you conform to a level or you don't — granular per-control reporting to
+  consumers would recreate the exact dynamic that made maintainers wary of Scorecard in the
+  first place: a vector for "please do these things" and punishment for project shapes where a
+  lower level is appropriate.
+
+The tension is unresolved: the "use the existing granular tool for debugging" counterpoint
+loses to the "one analysis, two tools is bad UX" argument on the consumer side, but the
+punishment-cycle warning deserves equal weight — it is the strongest maintainer-side argument
+in the thread, and it is precisely what Scorecard lived through with per-check scores.
 
 ## Method & caveats
 
