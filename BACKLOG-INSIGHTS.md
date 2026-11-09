@@ -22,12 +22,12 @@ _From the 254 open [issues](https://github.com/ossf/scorecard/issues) of ossf/sc
 
 | Proposed check | What they actually want |
 | --- | --- |
-| GitHub attestations [_4080] | Stop punishing me for current best practice (a Signed-Releases fairness fix) |
-| Private vulnerability reporting [_2465] | Credit for security work my team already did |
-| CHANGELOG [_4824] / criticality & maturity [_3821] | The score should mean something — validity complaint about existing signals |
-| Tag protection [_2476] | The score should predict the supply-chain risk I actually care about |
+| GitHub attestations [#_4080][_4080] | Stop punishing me for current best practice (a Signed-Releases fairness fix) |
+| Private vulnerability reporting [#_2465][_2465] | Credit for security work my team already did |
+| CHANGELOG [#_4824][_4824] / criticality & maturity [#_3821][_3821] | The score should mean something — validity complaint about existing signals |
+| Tag protection [#_2476][_2476] | The score should predict the supply-chain risk I actually care about |
 
-Tell: proposed "new checks" overwhelmingly detect something the requester's *own project already does* that Scorecard fails to see. Consequence: triage by underlying goal, not title — the fix is usually "make an existing evaluation recognize a new mechanism" (smaller and faster than a new check), and answering the fairness complaint prevents regrowth: six separate attestation issues exist because the first five were answered as feature requests. **Exception: threat disclosures** ([_2733]) — for a freshly disclosed attack the check genuinely *is* the ask; adoption at scale is the goal. Rule of thumb: x-ray scoring proposals for the hidden want; take attack-disclosure checks at face value.
+Tell: proposed "new checks" overwhelmingly detect something the requester's *own project already does* that Scorecard fails to see. Consequence: triage by underlying goal, not title — the fix is usually "make an existing evaluation recognize a new mechanism" (smaller and faster than a new check), and answering the fairness complaint prevents regrowth: six separate attestation issues exist because the first five were answered as feature requests. **Exception: threat disclosures** ([#_2733][_2733]) — for a freshly disclosed attack the check genuinely *is* the ask; adoption at scale is the goal. Rule of thumb: x-ray scoring proposals for the hidden want; take attack-disclosure checks at face value.
 
 ## Prioritized arrangement
 
@@ -45,45 +45,45 @@ Tell: proposed "new checks" overwhelmingly detect something the requester's *own
 
 ### Column 1 — accuracy & anti-gaming (~16)
 
-- Frozen-Deps: don't require pinning for libraries [_689]; enforce hash-pinning [_427]; pinning enhancements [_383]
-- Pinned-Deps: Makefile support [_884]; more unpinned Go commands [_1606]
-- Code-Review: recognize zappr enforcement [_2952]; recognize prow (`/lgtm`+`/approve`) gate [_5280]
-- SAST: recognize CodeQL [_3817]
-- Vulnerabilities: separate "no vulns" from "no disclosure" [_4789]; ignore dev-dependencies in OSV scan [_4550]
-- Security-Policy beyond SECURITY.md [_4192]
-- Bus-factor: contributor absence [_5416]; account-age weighting (anti-sockpuppet) [_4000]; criticality & maturity [_3821]
-- Branch-Protection: collect bypass allowances (protection overstated) [_5451]; CODEOWNERS freshness probe [_3931]
+- Frozen-Deps: don't require pinning for libraries [#_689][_689]; enforce hash-pinning [#_427][_427]; pinning enhancements [#_383][_383]
+- Pinned-Deps: Makefile support [#_884][_884]; more unpinned Go commands [#_1606][_1606]
+- Code-Review: recognize zappr enforcement [#_2952][_2952]; recognize prow (`/lgtm`+`/approve`) gate [#_5280][_5280]
+- SAST: recognize CodeQL [#_3817][_3817]
+- Vulnerabilities: separate "no vulns" from "no disclosure" [#_4789][_4789]; ignore dev-dependencies in OSV scan [#_4550][_4550]
+- Security-Policy beyond SECURITY.md [#_4192][_4192]
+- Bus-factor: contributor absence [#_5416][_5416]; account-age weighting (anti-sockpuppet) [#_4000][_4000]; criticality & maturity [#_3821][_3821]
+- Branch-Protection: collect bypass allowances (protection overstated) [#_5451][_5451]; CODEOWNERS freshness probe [#_3931][_3931]
 
 ### Column 2 — policy & standards (~2)
 
-- Align checks with S2C2F Maturity Level 2 [_4296]; (inverse) remove CII-Best-Practices [_2904]
+- Align checks with S2C2F Maturity Level 2 [#_4296][_4296]; (inverse) remove CII-Best-Practices [#_2904][_2904]
 - Mostly requests for *mechanisms* (thresholds, exemptions), not new checks.
 
 ### Column 3 — platform & ecosystem currency (~15)
 
-- Signed-Releases via GitHub attestations [_4080]; SBOMs in CI artifacts [_4119]
-- Private vulnerability reporting [_2465]; OIDC-based publishing (PyPI etc.) [_2761]; tag-protection rules [_2476]
-- Allow job-level write permissions when hash-pinned [_3022]; pre-commit framework as SAST [_5333]
-- Maintained: activity within the last year [_2160]; Deps-Update-Tool still active [_2165]
-- Packaging recognition: goreleaser fork [_5131], cargo-dist [_5145], winget [_5168], Helm charts [_5288], docker/bake-action [_5365]
-- Ecosystem: Composer (PHP) support [_4378]
+- Signed-Releases via GitHub attestations [#_4080][_4080]; SBOMs in CI artifacts [#_4119][_4119]
+- Private vulnerability reporting [#_2465][_2465]; OIDC-based publishing (PyPI etc.) [#_2761][_2761]; tag-protection rules [#_2476][_2476]
+- Allow job-level write permissions when hash-pinned [#_3022][_3022]; pre-commit framework as SAST [#_5333][_5333]
+- Maintained: activity within the last year [#_2160][_2160]; Deps-Update-Tool still active [#_2165][_2165]
+- Packaging recognition: goreleaser fork [#_5131][_5131], cargo-dist [#_5145][_5145], winget [#_5168][_5168], Helm charts [#_5288][_5288], docker/bake-action [#_5365][_5365]
+- Ecosystem: Composer (PHP) support [#_4378][_4378]
 
 ### Column 4 — actionability (zero)
 
-No check-shaped proposals — its asks are remediation steps [_1850] and markdown export [_3798]: *output*, not new detections. That itself is signal: this cohort wants pasteables, not checks.
+No check-shaped proposals — its asks are remediation steps [#_1850][_1850] and markdown export [_3798]: *output*, not new detections. That itself is signal: this cohort wants pasteables, not checks.
 
 ### Column 5 — threat currency (~11)
 
-- Imposter commits (Chainguard/clank) [_2733]; `on: workflow_run` trigger chaining [_3861]
-- Dangerous-Workflows: detect refs [_2404]; declared branches [_2406]; Jenkinsfiles [_2214]; untrusted-input expansion [_3915]
-- Tokens able to create/approve PRs [_2707]; secure runners (self-hosted abuse vector) [_3801]
-- Unpinned repo clones in scripts/Makefiles [_608]; `.whl` download → pip install execution [_613]; AI / external-communication usage detection [_4565]
+- Imposter commits (Chainguard/clank) [#_2733][_2733]; `on: workflow_run` trigger chaining [#_3861][_3861]
+- Dangerous-Workflows: detect refs [#_2404][_2404]; declared branches [#_2406][_2406]; Jenkinsfiles [#_2214][_2214]; untrusted-input expansion [#_3915][_3915]
+- Tokens able to create/approve PRs [#_2707][_2707]; secure runners (self-hosted abuse vector) [#_3801][_3801]
+- Unpinned repo clones in scripts/Makefiles [#_608][_608]; `.whl` download → pip install execution [#_613][_613]; AI / external-communication usage detection [#_4565][_4565]
 
 ## Consolidation opportunities
 
-1. **Signed-Releases v2 epic** — the attestations cluster [_4080], [_4667], [_4174], [_382], [_2684], [_5308] is six issues asking one thing.
-2. **`workflow-threats` probe family** — [_2733], [_3861], [_2404], [_2406], [_3915] become probes composed into one check; new disclosures get slotted, not architected per-issue.
-3. **Policy/conformance migration** — threshold [_4631], exemption [_2614], and output [_1850], [_3798] asks fold into the OSPS-Baseline conformance layer rather than the classic score.
+1. **Signed-Releases v2 epic** — the attestations cluster [#_4080][_4080], [#_4667][_4667], [#_4174][_4174], [#_382][_382], [#_2684][_2684], [#_5308][_5308] is six issues asking one thing.
+2. **`workflow-threats` probe family** — [#_2733][_2733], [#_3861][_3861], [#_2404][_2404], [#_2406][_2406], [#_3915][_3915] become probes composed into one check; new disclosures get slotted, not architected per-issue.
+3. **Policy/conformance migration** — threshold [#_4631][_4631], exemption [#_2614][_2614], and output [#_1850][_1850], [#_3798][_3798] asks fold into the OSPS-Baseline conformance layer rather than the classic score.
 4. **Stale harvest** — the Step 0 pass over 120 stale issues (many pre-2023, superseded by the probes refactor).
 
 ## Open decision: conformance reporting granularity
@@ -98,7 +98,7 @@ Unresolved. The "use the existing granular tool for debugging" counterpoint lose
 ## Method & caveats
 
 - All 254 open issues fetched via GitHub API, clustered by title keywords, labels, and comment counts; ~12 high-traction bodies read in full; regex proposal detection across all bodies, then hand-curated.
-- Classification ambiguities remain for [_4565] and [_4769].
+- Classification ambiguities remain for [#_4565][_4565] and [#_4769][_4769].
 - Column 2 ranked above Column 4 is a judgment call, sensitive to weighting large-org gate users vs. individual contributors.
 
 [_382]: https://github.com/ossf/scorecard/issues/382
