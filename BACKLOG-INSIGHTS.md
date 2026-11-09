@@ -30,9 +30,41 @@ Beneath the issue titles, almost every request is one of five core problems:
 5. **"Am I safe from the attack of the week?" (threat currency).** Security researchers use
    Scorecard as the distribution channel for newly disclosed CI-attack techniques.
 
-**Meta-observation:** nobody wants more checks — they want a signal that is accurate, current,
-actionable, and enforceable. Most backlog growth comes from Scorecard being a *measurement* tool
-used for *judgment*.
+**Meta-observation:** people propose checks, but what they want is a signal that is
+accurate, current, actionable, and enforceable. Most backlog growth comes from Scorecard being
+a *measurement* tool used for *judgment*. See the next section for what this means for triage.
+
+## Read the hidden want, not the proposed check
+
+A "new check" request is almost never the underlying want. People arrive with a
+frustration and propose "add a check" because it's the only lever the project visibly
+offers — and the issue template's "Describe the solution you'd like" funnels them
+straight to implementation. Reading the request as the goal mis-triages it:
+
+| Proposed check (issue) | What they actually want |
+| --- | --- |
+| GitHub attestations check ([#4080](https://github.com/ossf/scorecard/issues/4080)) | Stop punishing me for adopting current best practice (a Signed-Releases fairness fix) |
+| Private vulnerability reporting ([#2465](https://github.com/ossf/scorecard/issues/2465)) | Credit for security work my team already did |
+| CHANGELOG check ([#4824](https://github.com/ossf/scorecard/issues/4824)) / criticality & maturity ([#3821](https://github.com/ossf/scorecard/issues/3821)) | The score should mean something — a validity complaint about existing signals |
+| Tag-protection check ([#2476](https://github.com/ossf/scorecard/issues/2476)) | The score should predict the supply-chain risk I actually care about |
+
+The giveaway: most proposed "new checks" detect something the *requester's project already
+does* that Scorecard fails to see. Proposals for coverage someone doesn't personally need are
+rare. Even the `kind/new-check` label confirms it — only 6 issues carry it, because most of
+these are fairness complaints wearing a feature-request costume.
+
+**Practical consequence:** triage these by underlying goal, not by title. The right fix is
+usually "make an existing evaluation recognize a new mechanism" — smaller and faster than a
+new check — and answering the fairness complaint prevents the backlog from regrowing: six
+separate attestation issues exist because the first five were answered as feature requests
+instead of a fairness problem.
+
+**The exception is threat currency (Column 5).** When a researcher proposes detection for a
+freshly disclosed attack technique ([#2733](https://github.com/ossf/scorecard/issues/2733),
+imposter commits, from the disclosure itself), the check genuinely *is* the ask — adoption at
+scale is their goal, and Scorecard is the distribution channel. Rule of thumb: for scoring
+logic, x-ray the proposal for the hidden want; for new attack disclosures, take the check at
+face value.
 
 ## Prioritized arrangement
 
