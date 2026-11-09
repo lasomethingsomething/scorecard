@@ -16,7 +16,7 @@ _From the 254 open [issues](https://github.com/ossf/scorecard/issues) of ossf/sc
 4. **My own verdict (enforcement).** *Not* "decide for me": consumers reject the tool dictating which checks matter. The ask is **per-check signal + configurable thresholds** for an appetite gate ("overall ≥ X, my critical checks not below Y") — per-consumer verdicts on shared signal. The OSPS-Baseline conformance mode is the structural answer.
 5. **Am I safe from the attack of the week? (threat currency).** Security researchers use Scorecard as the distribution channel for newly disclosed CI-attack techniques.
 
-**Two personas, not one.** The issue tracker is almost entirely *maintainers defending their badge*; largely missing is the **consumer vetting upstream dependencies** — Scorecard's original design purpose — whose asks (per-check detail, "why is this only level 1?", evidence behind a gate) surface in threads, not issues. "Trust" and "enforce" each split into a maintainer-side and a consumer-side complaint; label roadmap work by which persona it serves.
+**Two personas, not one.** The v1 README's stated goal — "automate analysis and trust decisions on the security posture of open source projects," usable "to monitor upstream security" — makes the *consumer vetting dependencies* the founding persona (with maintainer dispute mechanisms designed in from the start). The issue tracker skews heavily toward *maintainers reacting to their own results* (false-positive disputes, fairness complaints) — that dominates the comment counts — but it is not the whole voice: consumer-shaped asks exist in the backlog, unlabeled and quiet ([#1683][_1683] API integration, [#4339][_4339] multi-org deployment, [#3798][_3798] ticket-ready output), and the consumer voice (per-check detail, "why is this only level 1?", appetite gates, conformance granularity) mostly surfaces in threads — e.g., the four consumer/maintainer voices behind the granularity discussion above. Caveat: persona proportions were not measured author-by-author; the maintainer-dominance claim is an inference from issue content, so treat it as directional, not quantified. "Trust" and "enforce" each split into a maintainer-side and a consumer-side complaint; label roadmap work by which persona it serves.
 
 **Proposals are solutions, not wants.** People arrive frustrated and propose "add a check" — the only lever the project visibly offers, funneled there by the template's "Describe the solution you'd like":
 
@@ -156,3 +156,5 @@ Unresolved. The "use the existing granular tool for debugging" counterpoint lose
 [_5365]: https://github.com/ossf/scorecard/issues/5365
 [_5416]: https://github.com/ossf/scorecard/issues/5416
 [_5451]: https://github.com/ossf/scorecard/issues/5451
+[_1683]: https://github.com/ossf/scorecard/issues/1683
+[_4339]: https://github.com/ossf/scorecard/issues/4339
