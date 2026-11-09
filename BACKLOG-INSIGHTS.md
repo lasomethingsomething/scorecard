@@ -1,218 +1,158 @@
-# OpenSSF Scorecard — open-issue backlog insights
+# OpenSSF Scorecard — backlog insights (Nov 2026)
 
-_Analysis generated November 2026 by Mistral Vibe, from the 254 open issues in
-[ossf/scorecard](https://github.com/ossf/scorecard/issues) (titles, labels, comment counts,
-and full bodies of the highest-traction candidates). Local working notes — not a project document._
+_From the 254 open [issues](https://github.com/ossf/scorecard/issues) of ossf/scorecard (created 2020–2026): titles, labels, comment counts, and the full bodies of the highest-traction candidates; cross-checked against a Nov 2026 community thread on conformance-mode reporting. Local working notes by Mistral Vibe — not a project document._
 
-## Backlog at a glance
+## At a glance
 
-- **254 open issues**, created 2020–2026
-- **120 (~47%) marked `Stale`** — the backlog is half triage debt
-- Labels: 128 `kind/enhancement`, 73 `kind/bug`, but only **6** labeled `kind/new-check` —
-  check proposals are widely under-labeled; title/label search alone finds ~1 in 8 of them
-- Hottest check-specific labels: `check/Pinned-Dependencies` (19), `check/Dangerous-Workflow` (10),
-  `check/Signed-Releases` (6), `check/Dependency-Update-Tool` (6)
+- 254 open issues; **120 (~47%) `Stale`** — the backlog is half triage debt.
+- Labels: 128 `kind/enhancement`, 73 `kind/bug`, only **6 `kind/new-check`** — check proposals are heavily under-labeled (title/label search finds ~1 in 8).
+- Hottest check labels: `Pinned-Dependencies` 19, `Dangerous-Workflow` 10, `Signed-Releases` 6, `Dependency-Update-Tool` 6.
 
-## The five core problems people want solved
+## Five core problems
 
-Beneath the issue titles, almost every request is one of five core problems:
+1. **Trust the number (accuracy & noise).** Inaccurate social-signal checks, stale heuristics, gaming → false positives on public badges; issues get filed to defend reputations.
+2. **Does the right thing today count? (currency).** GitHub ships security features (attestations, OIDC publishing, private vulnerability reporting) faster than Scorecard encodes them; early adopters watch scores *drop* while being more secure.
+3. **Now what? (actionability).** Consumers need work items — remediation diffs, ticket-ready checklists — not findings.
+4. **My own verdict (enforcement).** *Not* "decide for me": consumers reject the tool dictating which checks matter. The ask is **per-check signal + configurable thresholds** for an appetite gate ("overall ≥ X, my critical checks not below Y") — per-consumer verdicts on shared signal. The OSPS-Baseline conformance mode is the structural answer.
+5. **Am I safe from the attack of the week? (threat currency).** Security researchers use Scorecard as the distribution channel for newly disclosed CI-attack techniques.
 
-1. **"Can I trust the number?" (accuracy & noise).** Inaccurate social-signal checks, stale
-   heuristics, and gaming produce false positives on public badges, and people file issues to
-   defend their reputation.
-2. **"Does doing the right thing today count?" (currency).** GitHub ships security features faster
-   than Scorecard encodes them; early adopters of attestations, OIDC publishing, private
-   vulnerability reporting watch their score *drop* while being more secure.
-3. **"Now what?" (actionability).** Consumers want work items — remediation diffs, ticket-ready
-   checklists — not findings.
-4. **"Can I enforce this?" (my own policy verdict).** Thresholds, exemptions, gates — but
-   crucially *not* "decide for me": consumers consistently reject the tool dictating which
-   checks matter. The real ask is **per-check signal plus configurable thresholds** so each
-   consumer sets an appetite gate ("overall ≥ X, my critical checks not below Y"). The new
-   OSPS Baseline conformance mode is the maintainers' structural answer here.
-5. **"Am I safe from the attack of the week?" (threat currency).** Security researchers use
-   Scorecard as the distribution channel for newly disclosed CI-attack techniques.
+**Two personas, not one.** The issue tracker is almost entirely *maintainers defending their badge*; largely missing is the **consumer vetting upstream dependencies** — Scorecard's original design purpose — whose asks (per-check detail, "why is this only level 1?", evidence behind a gate) surface in threads, not issues. "Trust" and "enforce" each split into a maintainer-side and a consumer-side complaint; label roadmap work by which persona it serves.
 
-**Two personas, not one.** Almost everything filed in this backlog comes from *maintainers
-defending their badge*. A second persona is largely absent from the issue tracker but real —
-**consumers vetting upstream dependencies**, Scorecard's original design purpose. Their asks
-(per-check detail, "why is this project only level 1?", evidence behind a gate) overlap with but
-differ from maintainer asks (stop punishing me, tell me what to fix). "Trust" and "enforce" each
-split into a maintainer-side and a consumer-side complaint; roadmap work should be labeled with
-which persona it serves.
+**Proposals are solutions, not wants.** People arrive frustrated and propose "add a check" — the only lever the project visibly offers, funneled there by the template's "Describe the solution you'd like":
 
-**Meta-observation:** people propose checks, but what they want is a signal that is
-accurate, current, actionable, and enforceable. Most backlog growth comes from Scorecard being
-a *measurement* tool used for *judgment*. See the next section for what this means for triage.
-
-## Read the hidden want, not the proposed check
-
-A "new check" request is almost never the underlying want. People arrive with a
-frustration and propose "add a check" because it's the only lever the project visibly
-offers — and the issue template's "Describe the solution you'd like" funnels them
-straight to implementation. Reading the request as the goal mis-triages it:
-
-| Proposed check (issue) | What they actually want |
+| Proposed check | What they actually want |
 | --- | --- |
-| GitHub attestations check ([#4080](https://github.com/ossf/scorecard/issues/4080)) | Stop punishing me for adopting current best practice (a Signed-Releases fairness fix) |
-| Private vulnerability reporting ([#2465](https://github.com/ossf/scorecard/issues/2465)) | Credit for security work my team already did |
-| CHANGELOG check ([#4824](https://github.com/ossf/scorecard/issues/4824)) / criticality & maturity ([#3821](https://github.com/ossf/scorecard/issues/3821)) | The score should mean something — a validity complaint about existing signals |
-| Tag-protection check ([#2476](https://github.com/ossf/scorecard/issues/2476)) | The score should predict the supply-chain risk I actually care about |
+| GitHub attestations [_4080] | Stop punishing me for current best practice (a Signed-Releases fairness fix) |
+| Private vulnerability reporting [_2465] | Credit for security work my team already did |
+| CHANGELOG [_4824] / criticality & maturity [_3821] | The score should mean something — validity complaint about existing signals |
+| Tag protection [_2476] | The score should predict the supply-chain risk I actually care about |
 
-The giveaway: most proposed "new checks" detect something the *requester's project already
-does* that Scorecard fails to see. Proposals for coverage someone doesn't personally need are
-rare. Even the `kind/new-check` label confirms it — only 6 issues carry it, because most of
-these are fairness complaints wearing a feature-request costume.
-
-**Practical consequence:** triage these by underlying goal, not by title. The right fix is
-usually "make an existing evaluation recognize a new mechanism" — smaller and faster than a
-new check — and answering the fairness complaint prevents the backlog from regrowing: six
-separate attestation issues exist because the first five were answered as feature requests
-instead of a fairness problem.
-
-**The exception is threat currency (Column 5).** When a researcher proposes detection for a
-freshly disclosed attack technique ([#2733](https://github.com/ossf/scorecard/issues/2733),
-imposter commits, from the disclosure itself), the check genuinely *is* the ask — adoption at
-scale is their goal, and Scorecard is the distribution channel. Rule of thumb: for scoring
-logic, x-ray the proposal for the hidden want; for new attack disclosures, take the check at
-face value.
+Tell: proposed "new checks" overwhelmingly detect something the requester's *own project already does* that Scorecard fails to see. Consequence: triage by underlying goal, not title — the fix is usually "make an existing evaluation recognize a new mechanism" (smaller and faster than a new check), and answering the fairness complaint prevents regrowth: six separate attestation issues exist because the first five were answered as feature requests. **Exception: threat disclosures** ([_2733]) — for a freshly disclosed attack the check genuinely *is* the ask; adoption at scale is the goal. Rule of thumb: x-ray scoring proposals for the hidden want; take attack-disclosure checks at face value.
 
 ## Prioritized arrangement
 
-- **Step 0 — triage harvest.** One pass over the 120 `Stale` issues (many superseded by the
-  probes refactor and conformance work) before any new planning.
-- **Column 1 first: trust.** Inaccurate scores actively generate issues in every other column.
-- **Column 2: enforceability.** Maintainers already chose the conformance direction; migrate
-  threshold/exemption asks into that framework.
-- **Column 3: platform currency.** Consolidate before building: 6 attestations issues → one
-  "Signed-Releases v2" epic; batch GitHub security-feature requests into one tracking issue.
-- **Column 4: actionability.** Cheapest user-visible wins (remediation snippets, markdown export);
-  localized output-layer work.
-- **Column 5 (despite being loudest): threat currency.** Externally paced — arrange *capacity*
-  (a `workflow-threats` probe family as the landing zone), not a schedule.
+- **Step 0 — triage harvest.** One pass over the 120 `Stale` issues (many superseded by the probes refactor and conformance work) before new planning.
+- **Column 1 — trust, first.** Inaccurate scores actively generate issues in every other column.
+- **Column 2 — enforcement.** Maintainers already chose the conformance direction; migrate threshold/exemption asks into that framework.
+- **Column 3 — currency.** Consolidate before building: the 6 attestations issues → one "Signed-Releases v2" epic; per-GitHub-feature tracking issue so future features get a known landing place.
+- **Column 4 — actionability.** Cheapest user-visible wins (remediation snippets, markdown export); localized output-layer work.
+- **Column 5 — threats (despite being loudest).** Externally paced — arrange *capacity* (a `workflow-threats` probe family as the landing zone), not a schedule.
+- **Sequencing:** interleave cheap correctness wins with one structural track at a time; KPI is Column-1 issue inflow — below trend a healthy backlog, above it a support channel.
 
-## Check requests — who and how many
+## Check proposals — who and how many
 
-An approximate **~45 genuine check/probe proposals** across ~40 unique proposers
-(several heavy repeat proposers, including maintainers). ~65 open issues match proposal-shaped
-language, of which the rest are bugs, docs, and infra requests.
+**~45 genuine check/probe proposals from ~40 unique proposers** (heavy repeat proposers, including maintainers); ~65 open issues match proposal-shaped language, the rest being bugs, docs, and infra requests.
 
-### Column 1 — accuracy & anti-gaming (~16 proposals)
+### Column 1 — accuracy & anti-gaming (~16)
 
-| Proposed check | Issue |
-| --- | --- |
-| Frozen-Deps: don't require pinning for libraries | [#689](https://github.com/ossf/scorecard/issues/689) |
-| Frozen-Deps: enforce hash-pinning | [#427](https://github.com/ossf/scorecard/issues/427) |
-| Frozen-Deps: pinning enhancements | [#383](https://github.com/ossf/scorecard/issues/383) |
-| Pinned-Deps: Makefile support | [#884](https://github.com/ossf/scorecard/issues/884) |
-| Pinned-Deps: more unpinned Go commands | [#1606](https://github.com/ossf/scorecard/issues/1606) |
-| Code-Review: recognize zappr enforcement | [#2952](https://github.com/ossf/scorecard/issues/2952) |
-| Code-Review: recognize prow (`/lgtm` + `/approve`) gate | [#5280](https://github.com/ossf/scorecard/issues/5280) |
-| SAST: recognize CodeQL usage | [#3817](https://github.com/ossf/scorecard/issues/3817) |
-| Vulnerabilities: separate "no vulns" from "no disclosure" | [#4789](https://github.com/ossf/scorecard/issues/4789) |
-| Vulnerabilities: ignore dev-dependencies in OSV scan | [#4550](https://github.com/ossf/scorecard/issues/4550) |
-| Security-Policy: look beyond SECURITY.md | [#4192](https://github.com/ossf/scorecard/issues/4192) |
-| Bus-factor: contributor absence factor | [#5416](https://github.com/ossf/scorecard/issues/5416) |
-| Bus-factor: contributor account-age weighting | [#4000](https://github.com/ossf/scorecard/issues/4000) |
-| Bus-factor: criticality & maturity | [#3821](https://github.com/ossf/scorecard/issues/3821) |
-| Branch-Protection: collect bypass allowances | [#5451](https://github.com/ossf/scorecard/issues/5451) |
-| CODEOWNERS: freshness probe | [#3931](https://github.com/ossf/scorecard/issues/3931) |
+- Frozen-Deps: don't require pinning for libraries [_689]; enforce hash-pinning [_427]; pinning enhancements [_383]
+- Pinned-Deps: Makefile support [_884]; more unpinned Go commands [_1606]
+- Code-Review: recognize zappr enforcement [_2952]; recognize prow (`/lgtm`+`/approve`) gate [_5280]
+- SAST: recognize CodeQL [_3817]
+- Vulnerabilities: separate "no vulns" from "no disclosure" [_4789]; ignore dev-dependencies in OSV scan [_4550]
+- Security-Policy beyond SECURITY.md [_4192]
+- Bus-factor: contributor absence [_5416]; account-age weighting (anti-sockpuppet) [_4000]; criticality & maturity [_3821]
+- Branch-Protection: collect bypass allowances (protection overstated) [_5451]; CODEOWNERS freshness probe [_3931]
 
-### Column 2 — policy & standards (~2 proposals)
+### Column 2 — policy & standards (~2)
 
-The enforcement column mostly requests *mechanisms* (thresholds, exemptions), not new checks.
+- Align checks with S2C2F Maturity Level 2 [_4296]; (inverse) remove CII-Best-Practices [_2904]
+- Mostly requests for *mechanisms* (thresholds, exemptions), not new checks.
 
-| Proposed check | Issue |
-| --- | --- |
-| Align checks with S2C2F Maturity Level 2 | [#4296](https://github.com/ossf/scorecard/issues/4296) |
-| (inverse) Remove the CII-Best-Practices check | [#2904](https://github.com/ossf/scorecard/issues/2904) |
+### Column 3 — platform & ecosystem currency (~15)
 
-### Column 3 — platform & ecosystem currency (~15 proposals)
-
-| Proposed check | Issue |
-| --- | --- |
-| GitHub artifact attestations for Signed-Releases | [#4080](https://github.com/ossf/scorecard/issues/4080) |
-| SBOMs in CI artifacts | [#4119](https://github.com/ossf/scorecard/issues/4119) |
-| Private vulnerability reporting enabled | [#2465](https://github.com/ossf/scorecard/issues/2465) |
-| OIDC-based publishing (PyPI etc.) | [#2761](https://github.com/ossf/scorecard/issues/2761) |
-| Tag-protection rules enabled | [#2476](https://github.com/ossf/scorecard/issues/2476) |
-| Allow job-level write permissions when hash-pinned | [#3022](https://github.com/ossf/scorecard/issues/3022) |
-| pre-commit framework as SAST | [#5333](https://github.com/ossf/scorecard/issues/5333) |
-| Maintained: activity within the last year | [#2160](https://github.com/ossf/scorecard/issues/2160) |
-| Deps-Update-Tool: tool is still active | [#2165](https://github.com/ossf/scorecard/issues/2165) |
-| Packaging: recognize step-security goreleaser fork | [#5131](https://github.com/ossf/scorecard/issues/5131) |
-| Packaging: recognize cargo-dist workflows | [#5145](https://github.com/ossf/scorecard/issues/5145) |
-| Packaging: recognize winget publishing workflows | [#5168](https://github.com/ossf/scorecard/issues/5168) |
-| Packaging: recognize Helm chart publishing | [#5288](https://github.com/ossf/scorecard/issues/5288) |
-| Packaging: recognize docker/bake-action | [#5365](https://github.com/ossf/scorecard/issues/5365) |
-| Ecosystem: Composer (PHP) package manager | [#4378](https://github.com/ossf/scorecard/issues/4378) |
+- Signed-Releases via GitHub attestations [_4080]; SBOMs in CI artifacts [_4119]
+- Private vulnerability reporting [_2465]; OIDC-based publishing (PyPI etc.) [_2761]; tag-protection rules [_2476]
+- Allow job-level write permissions when hash-pinned [_3022]; pre-commit framework as SAST [_5333]
+- Maintained: activity within the last year [_2160]; Deps-Update-Tool still active [_2165]
+- Packaging recognition: goreleaser fork [_5131], cargo-dist [_5145], winget [_5168], Helm charts [_5288], docker/bake-action [_5365]
+- Ecosystem: Composer (PHP) support [_4378]
 
 ### Column 4 — actionability (zero)
 
-No check-shaped proposals land here — its asks
-([#1850](https://github.com/ossf/scorecard/issues/1850) remediation steps,
-[#3798](https://github.com/ossf/scorecard/issues/3798) markdown export) want *output*, not
-new detections. That itself is signal.
+No check-shaped proposals — its asks are remediation steps [_1850] and markdown export [_3798]: *output*, not new detections. That itself is signal: this cohort wants pasteables, not checks.
 
-### Column 5 — threat currency (~11 proposals)
+### Column 5 — threat currency (~11)
 
-| Proposed check | Issue |
-| --- | --- |
-| Imposter commits (Chainguard/clank detection) | [#2733](https://github.com/ossf/scorecard/issues/2733) |
-| `on: workflow_run` trigger chaining | [#3861](https://github.com/ossf/scorecard/issues/3861) |
-| Dangerous-Workflows: detect refs | [#2404](https://github.com/ossf/scorecard/issues/2404) |
-| Dangerous-Workflows: declared branches | [#2406](https://github.com/ossf/scorecard/issues/2406) |
-| Dangerous-Workflows: Jenkinsfile analysis | [#2214](https://github.com/ossf/scorecard/issues/2214) |
-| Dangerous-Workflows: untrusted-input expansion | [#3915](https://github.com/ossf/scorecard/issues/3915) |
-| Tokens able to create/approve PRs | [#2707](https://github.com/ossf/scorecard/issues/2707) |
-| Secure runners (self-hosted abuse vector) | [#3801](https://github.com/ossf/scorecard/issues/3801) |
-| Unpinned repo clones in scripts/Makefiles | [#608](https://github.com/ossf/scorecard/issues/608) |
-| `.whl` download → pip install execution | [#613](https://github.com/ossf/scorecard/issues/613) |
-| AI / external-communication usage detection | [#4565](https://github.com/ossf/scorecard/issues/4565) |
+- Imposter commits (Chainguard/clank) [_2733]; `on: workflow_run` trigger chaining [_3861]
+- Dangerous-Workflows: detect refs [_2404]; declared branches [_2406]; Jenkinsfiles [_2214]; untrusted-input expansion [_3915]
+- Tokens able to create/approve PRs [_2707]; secure runners (self-hosted abuse vector) [_3801]
+- Unpinned repo clones in scripts/Makefiles [_608]; `.whl` download → pip install execution [_613]; AI / external-communication usage detection [_4565]
 
 ## Consolidation opportunities
 
-1. **Signed-Releases v2 epic** — the attestations cluster
-   ([#4080](https://github.com/ossf/scorecard/issues/4080), [#4667](https://github.com/ossf/scorecard/issues/4667),
-   [#4174](https://github.com/ossf/scorecard/issues/4174), [#382](https://github.com/ossf/scorecard/issues/382),
-   [#2684](https://github.com/ossf/scorecard/issues/2684), [#5308](https://github.com/ossf/scorecard/issues/5308))
-   is six issues asking one thing: recognize GitHub artifact attestations.
-2. **`workflow-threats` probe family** — the Dangerous-Workflow additions
-   ([#2733](https://github.com/ossf/scorecard/issues/2733), [#3861](https://github.com/ossf/scorecard/issues/3861),
-   [#2404](https://github.com/ossf/scorecard/issues/2404), [#2406](https://github.com/ossf/scorecard/issues/2406),
-   [#3915](https://github.com/ossf/scorecard/issues/3915)) become probes composed into one check; new
-   disclosures get slotted, not architected per-issue.
-3. **Policy/conformance migration** — threshold ([#4631](https://github.com/ossf/scorecard/issues/4631)),
-   exemption ([#2614](https://github.com/ossf/scorecard/issues/2614)), and output
-   ([#1850](https://github.com/ossf/scorecard/issues/1850), [#3798](https://github.com/ossf/scorecard/issues/3798))
-   asks fold into the new OSPS-Baseline conformance layer rather than the classic score.
-4. **Stale harvest** — 120 stale issues, many pre-2023, likely superseded by the probes refactor.
+1. **Signed-Releases v2 epic** — the attestations cluster [_4080], [_4667], [_4174], [_382], [_2684], [_5308] is six issues asking one thing.
+2. **`workflow-threats` probe family** — [_2733], [_3861], [_2404], [_2406], [_3915] become probes composed into one check; new disclosures get slotted, not architected per-issue.
+3. **Policy/conformance migration** — threshold [_4631], exemption [_2614], and output [_1850], [_3798] asks fold into the OSPS-Baseline conformance layer rather than the classic score.
+4. **Stale harvest** — the Step 0 pass over 120 stale issues (many pre-2023, superseded by the probes refactor).
 
 ## Open decision: conformance reporting granularity
 
-Not in the issue backlog, but the most consequential live discussion (Nov 2026 community
-thread, conformance mode): **what does conformance output report by default?**
+Not in the issue backlog (Nov 2026 community thread): **what does conformance output report by default?**
 
-- *Granular:* maturity levels as the default, with control details in evidence files or via an
-  explicit flag — consumers need "why is this level 1?" for risk decisions; splitting detail
-  into a second tool is bad UX for what is conceptually one analysis.
-- *Binary:* either you conform to a level or you don't — granular per-control reporting to
-  consumers would recreate the exact dynamic that made maintainers wary of Scorecard in the
-  first place: a vector for "please do these things" and punishment for project shapes where a
-  lower level is appropriate.
+- *Granular:* maturity levels as default, control details in evidence files or behind an explicit flag — consumers need "why is this level 1?" for risk decisions; "one analysis, two tools" is bad UX.
+- *Binary:* conform or don't — granular per-control consumer reporting would recreate the dynamic that made maintainers wary of Scorecard: a vector for "please do these things," punishment for project shapes where a lower level is appropriate.
 
-The tension is unresolved: the "use the existing granular tool for debugging" counterpoint
-loses to the "one analysis, two tools is bad UX" argument on the consumer side, but the
-punishment-cycle warning deserves equal weight — it is the strongest maintainer-side argument
-in the thread, and it is precisely what Scorecard lived through with per-check scores.
+Unresolved. The "use the existing granular tool for debugging" counterpoint loses to the UX argument on the consumer side, but the punishment-cycle warning is the strongest maintainer-side argument and precisely what Scorecard lived through with per-check scores — it deserves equal weight.
 
 ## Method & caveats
 
-- All 254 open issues fetched via the GitHub API (state :open) and clustered by theme using
-  title keywords, labels, and comment counts; ~12 high-traction bodies read in full, plus
-  regex-based proposal detection across all bodies.
-- Curated by hand from the machine-generated candidate list; classification ambiguities
-  remain for [#4565](https://github.com/ossf/scorecard/issues/4565) and
-  [#4769](https://github.com/ossf/scorecard/issues/4769).
-- Priority ordering (Column 2 above Column 4) is a judgment call sensitive to weighting
-  large-org gate users vs. individual contributors.
+- All 254 open issues fetched via GitHub API, clustered by title keywords, labels, and comment counts; ~12 high-traction bodies read in full; regex proposal detection across all bodies, then hand-curated.
+- Classification ambiguities remain for [_4565] and [_4769].
+- Column 2 ranked above Column 4 is a judgment call, sensitive to weighting large-org gate users vs. individual contributors.
+
+[_382]: https://github.com/ossf/scorecard/issues/382
+[_383]: https://github.com/ossf/scorecard/issues/383
+[_427]: https://github.com/ossf/scorecard/issues/427
+[_608]: https://github.com/ossf/scorecard/issues/608
+[_613]: https://github.com/ossf/scorecard/issues/613
+[_689]: https://github.com/ossf/scorecard/issues/689
+[_884]: https://github.com/ossf/scorecard/issues/884
+[_1606]: https://github.com/ossf/scorecard/issues/1606
+[_1850]: https://github.com/ossf/scorecard/issues/1850
+[_2160]: https://github.com/ossf/scorecard/issues/2160
+[_2165]: https://github.com/ossf/scorecard/issues/2165
+[_2214]: https://github.com/ossf/scorecard/issues/2214
+[_2404]: https://github.com/ossf/scorecard/issues/2404
+[_2406]: https://github.com/ossf/scorecard/issues/2406
+[_2465]: https://github.com/ossf/scorecard/issues/2465
+[_2476]: https://github.com/ossf/scorecard/issues/2476
+[_2614]: https://github.com/ossf/scorecard/issues/2614
+[_2684]: https://github.com/ossf/scorecard/issues/2684
+[_2707]: https://github.com/ossf/scorecard/issues/2707
+[_2733]: https://github.com/ossf/scorecard/issues/2733
+[_2761]: https://github.com/ossf/scorecard/issues/2761
+[_2904]: https://github.com/ossf/scorecard/issues/2904
+[_2952]: https://github.com/ossf/scorecard/issues/2952
+[_3022]: https://github.com/ossf/scorecard/issues/3022
+[_3798]: https://github.com/ossf/scorecard/issues/3798
+[_3801]: https://github.com/ossf/scorecard/issues/3801
+[_3817]: https://github.com/ossf/scorecard/issues/3817
+[_3821]: https://github.com/ossf/scorecard/issues/3821
+[_3861]: https://github.com/ossf/scorecard/issues/3861
+[_3915]: https://github.com/ossf/scorecard/issues/3915
+[_3931]: https://github.com/ossf/scorecard/issues/3931
+[_4000]: https://github.com/ossf/scorecard/issues/4000
+[_4080]: https://github.com/ossf/scorecard/issues/4080
+[_4119]: https://github.com/ossf/scorecard/issues/4119
+[_4174]: https://github.com/ossf/scorecard/issues/4174
+[_4192]: https://github.com/ossf/scorecard/issues/4192
+[_4296]: https://github.com/ossf/scorecard/issues/4296
+[_4378]: https://github.com/ossf/scorecard/issues/4378
+[_4550]: https://github.com/ossf/scorecard/issues/4550
+[_4565]: https://github.com/ossf/scorecard/issues/4565
+[_4631]: https://github.com/ossf/scorecard/issues/4631
+[_4667]: https://github.com/ossf/scorecard/issues/4667
+[_4769]: https://github.com/ossf/scorecard/issues/4769
+[_4789]: https://github.com/ossf/scorecard/issues/4789
+[_4824]: https://github.com/ossf/scorecard/issues/4824
+[_5131]: https://github.com/ossf/scorecard/issues/5131
+[_5145]: https://github.com/ossf/scorecard/issues/5145
+[_5168]: https://github.com/ossf/scorecard/issues/5168
+[_5280]: https://github.com/ossf/scorecard/issues/5280
+[_5288]: https://github.com/ossf/scorecard/issues/5288
+[_5308]: https://github.com/ossf/scorecard/issues/5308
+[_5333]: https://github.com/ossf/scorecard/issues/5333
+[_5365]: https://github.com/ossf/scorecard/issues/5365
+[_5416]: https://github.com/ossf/scorecard/issues/5416
+[_5451]: https://github.com/ossf/scorecard/issues/5451
